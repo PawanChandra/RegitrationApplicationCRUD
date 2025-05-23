@@ -12,8 +12,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <header style="height:50px;background-color:khaki;color:teal;text-align:center;padding-top:10px;">
-        <a asp-action="Index" asp-controller="Register" style="text-decoration:none"><h4>Registration Application</h4></a>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid" style="text-align:center">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Register" asp-action="Index">Home</a>
+                        </li>
+                        @if (Context.Session.GetString("Name") != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#">Hi, @Context.Session.GetString("Name")!</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="javascript:void(0)" onclick="ConfirmLogout()">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-action="Login" asp-controller="Account">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-action="Create" asp-controller="Register">Register</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -26,9 +58,28 @@
             &copy; 2024 - Registration Application - <a href="#">Privacy</a>
         </div>
     </footer>
+    <script type="text/javascript">
+        function ConfirmLogout() {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "Have you saved your changes!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Logout',
+                cancelButtonText: 'Cancel',
+                reverseButton: true
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '@Url.Action("Logout", "Account")';
+                }
+            });
+        }
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+ 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

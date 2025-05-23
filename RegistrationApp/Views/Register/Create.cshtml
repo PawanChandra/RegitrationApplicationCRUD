@@ -1,4 +1,5 @@
-﻿@model RegistrationApp.Models.Registration
+﻿@using RegistrationApp.Models.CoreModels
+@model RegistrationApp.Models.Registration
 @{
     ViewData["Title"] = "Create";
 }
@@ -31,6 +32,34 @@
                 <span asp-validation-for="MobileNo" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="CountryId" class="control-label"></label>
+                <select asp-for="CountryId" id="ddlCountry" class="form-control">
+                    <option value="@Guid.Empty">Select Country</option>
+                    @if (ViewData["Countries"] != null)
+                    {
+                        @foreach (var country in (IEnumerable<CountryManager>)ViewData["Countries"])
+                        {
+                            <option value="@country.Id">@country.CountryName</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StateId" class="control-label"></label>
+                <select asp-for="StateId" id="ddlState" disabled class="form-control">
+                    <option value="0">Select State</option>
+                </select>
+                <span asp-validation-for="StateId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CityId" class="control-label"></label>
+                <select asp-for="CityId" id="ddlCity" disabled class="form-control">
+                    <option value="0">Select City</option>
+                </select>
+                <span asp-validation-for="CityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
                 <input type="password" asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
@@ -43,8 +72,52 @@
     </div>
 </div>
 
-
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            $('#ddlCountry').change(function () {
+                var countryId = $(this).val();
+                console.log("Selected Country ID: " + countryId);
+
+                if (countryId && countryId !== '@Guid.Empty') {
+                    $.get('@Url.Action("GetStatesByCountry", "Register")', { countryId: countryId }, function (states) {
+                        var stateDropdown = $('#ddlState');
+                        stateDropdown.empty();
+                        stateDropdown.prop('disabled', false);
+                        stateDropdown.append('<option value="0">Select State</option>');
+                        console.log("State data: " + states);
+                        $.each(states, function (index, state) {
+                            stateDropdown.append('<option value="' + state.id + '">' + state.stateName + '</option>');
+                        });
+                    });
+                } else {
+                    $('#ddlState').empty().append('<option value="0">Select State</option>').prop('disabled', true);
+                }
+            });
+
+            // State change -> Load cities
+            $('#ddlState').change(function () {
+                var stateId = $(this).val();
+
+                if (stateId && stateId !== "0") {
+                    $.get('@Url.Action("GetCitiesByState", "Register")', { stateId: stateId }, function (data) {
+                        var cityDropdown = $('#ddlCity');
+                        cityDropdown.empty().prop('disabled', false);
+                        cityDropdown.append('<option value="0">Select City</option>');
+
+                        $.each(data, function (index, city) {
+                            cityDropdown.append('<option value="' + city.id + '">' + city.cityName + '</option>');
+                        });
+                    });
+                } else {
+                    $('#ddlCity').empty().append('<option value="0">Select City</option>').prop('disabled', true);
+                }
+            });
+        });
+    </script>
+
 }
+

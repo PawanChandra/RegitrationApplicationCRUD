@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RegistrationApp.Models.CoreModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace RegistrationApp.Models
 {
@@ -17,5 +18,13 @@ namespace RegistrationApp.Models
         public string MobileNo { get; set; } = string.Empty;
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }= string.Empty;
+
+        public Guid CountryId { get; set; }
+        public Guid StateId { get; set; }
+        public Guid CityId { get; set; }
+        public CountryManager? Country { get; set; }
+        public StateManager? State { get; set; }
+        public CityManager? City { get; set; }
+
     }
 }

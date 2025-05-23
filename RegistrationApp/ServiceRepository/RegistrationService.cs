@@ -1,5 +1,6 @@
 ﻿using RegistrationApp.DataContext;
 using RegistrationApp.Models;
+using RegistrationApp.Models.CoreModels;
 
 namespace RegistrationApp.ServiceRepository
 {
@@ -64,9 +65,12 @@ namespace RegistrationApp.ServiceRepository
                     registration.Email = updateRegistrationRequest.Email;
                     registration.Gender = updateRegistrationRequest.Gender;
                     registration.MobileNo = updateRegistrationRequest.MobileNo;
-                    registration.MobileNo = updateRegistrationRequest.MobileNo;
+                    registration.CountryId = updateRegistrationRequest.CountryId;
+                    registration.StateId = updateRegistrationRequest.StateId;
+                    registration.CityId = updateRegistrationRequest.CityId;
 
-                    applicationDbContext.Update(registration);
+
+                    applicationDbContext.Registrations.Update(registration);
                     applicationDbContext.SaveChanges();
                     return true;
                 }
@@ -94,6 +98,21 @@ namespace RegistrationApp.ServiceRepository
                 Console.Write(ex.Message);
             }
             return false;
+        }
+
+        public List<CountryManager> GetCountries()
+        {
+            return applicationDbContext.Countries.ToList();
+        }
+        public List<StateManager> GetStatesByCountry(Guid countryId)
+        {
+            var states = applicationDbContext.States.Where(s => s.CountryId == countryId).ToList();
+            return states ?? null;
+        }
+        public List<CityManager> GetCitiesByState(Guid stateId)
+        {
+            var cities = applicationDbContext.Cities.Where(s => s.StateId == stateId).ToList();
+            return cities ?? null;
         }
     }
 }
