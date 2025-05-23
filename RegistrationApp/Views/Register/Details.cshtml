@@ -30,8 +30,22 @@
             <input asp-for="MobileNo" class="form-control" readonly />
                 <span asp-validation-for="MobileNo" class="text-danger"></span>
             </div>
+        <div class="form-group">
+            <label asp-for="CountryId"></label>
+            <select asp-for="CountryId" asp-items="Model.Countries" class="form-control"disabled></select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StateId"></label>
+            <select asp-for="StateId" asp-items="Model.States" class="form-control" disabled></select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CityId"></label>
+            <select asp-for="CityId" asp-items="Model.Cities" class="form-control" disabled></select>
+        </div>
             <div class="form-group mt-3">
-            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            <a asp-controller="Dashboard" asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
     </div>
 </div>

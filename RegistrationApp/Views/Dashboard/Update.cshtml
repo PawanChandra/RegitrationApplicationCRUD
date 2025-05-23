@@ -1,13 +1,13 @@
 ﻿@model RegistrationApp.Models.UpdateRegistrationVM
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Update";
 }
-
-<h4 class="mt-5">Update Details</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="edit">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <h4 class="mt-5">Update Details</h4>
+        <hr />
+        <form asp-action="update" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <input type="hidden" asp-for="Id" />
@@ -30,28 +30,14 @@
                 <label asp-for="MobileNo" class="control-label"></label>
                 <input asp-for="MobileNo" class="form-control" />
                 <span asp-validation-for="MobileNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CountryId"></label>
-                <select asp-for="CountryId" asp-items="Model.Countries" class="form-control"></select>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="StateId"></label>
-                <select asp-for="StateId" asp-items="Model.States" class="form-control"></select>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="CityId"></label>
-                <select asp-for="CityId" asp-items="Model.Cities" class="form-control"></select>
-            </div>
-            <br />
+            </div><br />
             <div class="form-group mt-2">
-                <a asp-controller="Dashboard" asp-action="Index" class="btn btn-secondary">Back to List</a>
-                <input type="submit" value="Edit" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                <input type="submit" value="Update" class="btn btn-primary" />
             </div>
         </form>
     </div>
+    <div class="col-md-3"></div>
 </div>
 
 @section Scripts {
