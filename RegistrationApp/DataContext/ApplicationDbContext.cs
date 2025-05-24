@@ -13,6 +13,7 @@ namespace RegistrationApp.DataContext
         public DbSet<CountryManager> Countries { get; set; }
         public DbSet<StateManager> States { get; set; }
         public DbSet<CityManager> Cities { get; set; }
+        public DbSet<ProductManager> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

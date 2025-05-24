@@ -13,21 +13,22 @@ namespace RegistrationApp.Controllers
         }
         public IActionResult Index()
         {
-            string? userIdString = HttpContext.Session.GetString("UserId");
-            if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out Guid userId))
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            if (userId != Guid.Empty)
-            {
-                var userById=_registrationService.GetRegistrationById(userId);
-                if (userById != null)
-                {
-                    var registrations = _registrationService.GetRegistrations() ?? Enumerable.Empty<Registration>();
-                    return View(registrations);
-                }
-            }
-            return RedirectToAction("Login","Account");
+            return View();
+            //string? userIdString = HttpContext.Session.GetString("UserId");
+            //if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out Guid userId))
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
+            //if (userId != Guid.Empty)
+            //{
+            //    var userById=_registrationService.GetRegistrationById(userId);
+            //    if (userById != null)
+            //    {
+            //        var registrations = _registrationService.GetRegistrations() ?? Enumerable.Empty<Registration>();
+            //        return View(registrations);
+            //    }
+            //}
+            //return RedirectToAction("Login","Account");
         }
     }
 }

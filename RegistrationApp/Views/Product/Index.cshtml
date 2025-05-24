@@ -1,0 +1,68 @@
+﻿@model IEnumerable<RegistrationApp.Models.CoreModels.ProductManager>
+@{
+    ViewData["Title"] = "Index";
+}
+<a class="btn btn-primary" asp-action="Create" asp-controller="Product">Create New</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ImagePath))
+                    {
+                        <img src="@item.ImagePath" alt="Product Image" width="100" />
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductId"><i class="fa fa-edit"></i></a>
+                    <a href="javascript:void(0)" onclick="ConfirmDelete('@item.ProductId')"><i class="fa fa-trash-o" style="color:red"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    function ConfirmDelete(itemId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: "Yes delete it!",
+            cancelButtonText: "Cancel",
+            reverseButton: true
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '@Url.Action("Delete", "Product", new { id = "_id_" })'.replace("_id_", itemId);
+            }
+        });
+    }
+</script>
