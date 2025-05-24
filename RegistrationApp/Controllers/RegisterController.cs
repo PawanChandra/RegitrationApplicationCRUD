@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RegistrationApp.Models;
 using RegistrationApp.ServiceRepository;
-using System.Diagnostics;
 
 namespace RegistrationApp.Controllers
 {
@@ -50,8 +49,8 @@ namespace RegistrationApp.Controllers
             }
             if (id != Guid.Empty)
             {
-                Registration registrationById= _registrationService.GetRegistrationById(id);
-                if(registrationById != null)
+                Registration registrationById = _registrationService.GetRegistrationById(id);
+                if (registrationById != null)
                 {
                     UpdateRegistrationVM updateRegistrationVM = new UpdateRegistrationVM
                     {
@@ -95,7 +94,7 @@ namespace RegistrationApp.Controllers
             if (registrationRequest.Id != Guid.Empty)
             {
                 bool res = _registrationService.UpdateRegistration(registrationRequest);
-                if(res)
+                if (res)
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }

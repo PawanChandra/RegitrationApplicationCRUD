@@ -56,6 +56,35 @@ namespace RegistrationApp.Migrations
                     b.ToTable("Countries");
                 });
 
+            modelBuilder.Entity("RegistrationApp.Models.CoreModels.ProductManager", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ProductId");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("RegistrationApp.Models.CoreModels.StateManager", b =>
                 {
                     b.Property<Guid>("Id")

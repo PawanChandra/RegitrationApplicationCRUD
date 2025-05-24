@@ -1,0 +1,40 @@
+﻿@model RegistrationApp.Models.CreateProductManagerVM
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4 class="mt-5">Create Product Here</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

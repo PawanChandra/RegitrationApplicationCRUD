@@ -1,65 +1,7 @@
-﻿@model IEnumerable<RegistrationApp.Models.Registration>
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MobileNo)
-            </th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Gender)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MobileNo)
-                </td>
-                <td>
-                    <a asp-controller="Register" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a> |
-                    <a asp-controller="Register" asp-action="Details" asp-route-id="@item.Id" x`><i class="fa fa-info-circle" style="color:forestgreen"></i></a> |
-                    <a href="javascript:void(0)" onclick="ConfirmDelete('@item.Id')"><i class="fa fa-trash-o" style="color:red"></i></a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-<script type="text/javascript">
-    function ConfirmDelete(itemId) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: "Yes delete it!",
-            cancelButtonText: "Cancel",
-            reverseButton: true
 
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '@Url.Action("Delete", "Register", new { id = "_id_" })'.replace("_id_", itemId);
-            }
-        });
-    }
-</script>
+<h3>Hi, Welcome to the Dashboard</h3>
+
+<h4><a href="/Product/Index" class="btn btn-success">View Products</a> | <a href="/Product/Create" class="btn btn-primary">Add Product</a></h4>
